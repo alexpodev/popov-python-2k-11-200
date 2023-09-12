@@ -2,6 +2,7 @@ add_history = []
 substract_history = []
 multiply_history = []
 devide_history = []
+legit_operations = ["+", "-", "*", "/"]
 
 while True:
     first_num = input("Please enter the first number: ")
@@ -9,18 +10,18 @@ while True:
     operation = input("Please enter the operation (+, -, *, /): ")
 
     print("-----RESULT-----")
-    if(operation == "+" or operation == "-" or operation == "*" or operation == "/"):
-        if(first_num.isdigit() and second_num.isdigit()):
-            if(operation == "+"):
+    if operation in legit_operations:
+        if first_num.isdigit() and second_num.isdigit():
+            if  operation == "+":
                 result = float(first_num) + float(second_num)
                 add_history.append(f"{first_num} {operation} {second_num} = {result}")
-            elif(operation == "-"):
+            elif operation == "-":
                 result = float(first_num) - float(second_num)
                 substract_history.append(f"{first_num} {operation} {second_num} = {result}")
-            elif(operation == "*"):
+            elif operation == "*" :
                 result = float(first_num) * float(second_num)
                 multiply_history.append(f"{first_num} {operation} {second_num} = {result}")
-            elif(operation == "/"):
+            elif operation == "/" :
                 result = float(first_num) / float(second_num)
                 devide_history.append(f"{first_num} {operation} {second_num} = {result}")
                 
