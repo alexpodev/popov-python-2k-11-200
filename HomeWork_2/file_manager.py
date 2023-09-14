@@ -19,5 +19,25 @@ while True:
                 current_dir = current_dir.parent
             else:
                 current_dir = current_dir / operation[3:]
+        elif operation.startswith('touch '):
+            file_name = operation[6:]
+            with open(current_dir / file_name, 'w') as f:
+                f.write('')
+                
+        elif operation.startswith('rm '):
+            try:
+                file_name = operation[3:]
+                os.remove(current_dir / file_name)
+            except:
+                print(f"\nCannot remove {file_name}: No such file in directory\n")
+            
+        elif operation.startswith('cat '):
+            file_name = operation[4:]
+            try:
+                with open(current_dir / file_name, 'r') as f:
+                    for line in f:
+                        print(line, end='\n')
+            except:
+                print(f"\nCannot open {file_name}: No such file in directory\n")
     else:
         print(f'\nInvalid operation {operation}\n')
