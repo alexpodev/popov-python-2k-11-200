@@ -14,6 +14,10 @@ while True:
                 print(f"\n{os.listdir(current_dir)}\n")
             except FileNotFoundError:
                 print('\nNo such file or directory\n')
-            
+        elif operation.startswith('cd '):
+            if operation[3:] == '..':
+                current_dir = current_dir.parent
+            else:
+                current_dir = current_dir / operation[3:]
     else:
         print(f'\nInvalid operation {operation}\n')
