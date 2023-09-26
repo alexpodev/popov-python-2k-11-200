@@ -1,3 +1,6 @@
+from func_details_decorator import func_details_decorator
+
+@func_details_decorator
 def find_max(*args):
     try:
         max_val = 0
@@ -8,4 +11,4 @@ def find_max(*args):
     except TypeError as e:
         return e
     
-print(find_max(1, 2, 3, 4, 5))
+find_max(1, 2, 3, 4, 5, 6)
