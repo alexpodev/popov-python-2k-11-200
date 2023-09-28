@@ -6,10 +6,14 @@ class Vector2D:
         return f'({self.x}, {self.y})'
 
     def __sub__(self, other):
-        return Vector2D(self.x - other.x, self.y - other.y)
+        if isinstance(other, Vector2D):
+            return Vector2D(self.x - other.x, self.y - other.y)
+        raise TypeError('You must substract two vectors only')
 
     def __add__(self, other):
-        return Vector2D(self.x + other.x, self.y + other.y)
+        if isinstance(other, Vector2D):
+            return Vector2D(self.x + other.x, self.y + other.y)
+        raise TypeError('You must add two vectors only')
 
     def __mul__(self, scalar):
         if isinstance(scalar, int) or isinstance(scalar, float):
