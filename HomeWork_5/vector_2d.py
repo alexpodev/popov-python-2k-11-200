@@ -16,7 +16,7 @@ class Vector2D:
         raise TypeError('You must add two vectors only')
 
     def __mul__(self, scalar):
-        if isinstance(scalar, int) or isinstance(scalar, float):
+        if isinstance(scalar, (int, float)):
             return Vector2D(self.x*scalar, self.y*scalar)
         raise ValueError('Scalar must be a int or float')
 
