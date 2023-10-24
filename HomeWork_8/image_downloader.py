@@ -2,7 +2,8 @@ import os
 import requests
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
-import threading
+from multiprocessing import Pool
+import itertools
 from url_normalaizer import normalize_image_url
 
 
@@ -23,7 +24,8 @@ def download_images_from_page(page_url, save_folder):
         current_domain = urlparse(page_url).scheme + "://" + urlparse(page_url).netloc
 
         img_tags = soup.find_all('img')
-        threads = []
+        links = []
+        save_paths = []
 
         for img_tag in img_tags:
             img_url = img_tag.get('src')
@@ -31,14 +33,12 @@ def download_images_from_page(page_url, save_folder):
                 img_url = normalize_image_url(img_url, current_domain)
                 img_filename = os.path.basename(urlparse(img_url).path)
                 save_path = os.path.join(save_folder, img_filename)
+                links.append(img_url)
+                save_paths.append(save_path)
 
-            
-                thread = threading.Thread(target=download_image, args=(img_url, save_path))
-                thread.start()
-                threads.append(thread)
+        with Pool() as pool:
+            pool.starmap(download_image, zip(links, save_paths))
 
-        for thread in threads:
-            thread.join()
 
 def main():
     page_url = input("Введите адрес страницы: ")

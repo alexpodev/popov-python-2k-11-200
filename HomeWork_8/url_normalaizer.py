@@ -12,7 +12,3 @@ def normalize_image_url(image_url, current_domain):
         parsed_url = parsed_url._replace(netloc=current_domain)
 
     return urlunparse(parsed_url)
-
-
-print(normalize_image_url(
-    'https://example.com/200.jpg', 'example.com'))
