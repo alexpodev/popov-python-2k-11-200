@@ -1,9 +1,10 @@
 import os
-import requests
-from urllib.parse import urlparse
-from bs4 import BeautifulSoup
 from multiprocessing import Pool
-import itertools
+from urllib.parse import urlparse
+
+import requests
+from bs4 import BeautifulSoup
+
 from url_normalaizer import normalize_image_url
 
 
@@ -25,7 +26,6 @@ def download_images_from_page(page_url, save_folder):
 
         img_tags = soup.find_all('img')
         links = []
-        save_paths = []
 
         for img_tag in img_tags:
             img_url = img_tag.get('src')
@@ -33,11 +33,10 @@ def download_images_from_page(page_url, save_folder):
                 img_url = normalize_image_url(img_url, current_domain)
                 img_filename = os.path.basename(urlparse(img_url).path)
                 save_path = os.path.join(save_folder, img_filename)
-                links.append(img_url)
-                save_paths.append(save_path)
+                links.append((img_url, save_path))
 
         with Pool() as pool:
-            pool.starmap(download_image, zip(links, save_paths))
+            pool.starmap(download_image, links)
 
 
 def main():
