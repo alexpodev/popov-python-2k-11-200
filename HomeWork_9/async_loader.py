@@ -1,8 +1,11 @@
 import os
-import aiohttp
 import asyncio
 from urllib.parse import urlparse, urlunparse
+
+import aiohttp
 from bs4 import BeautifulSoup
+
+from url_normalaizer import normalize_image_url
 
 
 def normalize_image_url(image_url, current_domain):
